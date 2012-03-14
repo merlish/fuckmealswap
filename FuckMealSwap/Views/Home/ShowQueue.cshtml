@@ -1,0 +1,67 @@
+﻿@model FuckMealSwap.Models.MealQueue
+
+@{
+    ViewBag.Title = "ShowQueue";
+}
+
+<h2>ShowQueue</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@helper DescribePerson(string name) {
+    var describers = new List<string> {
+        "%s is one such lost soul.",
+        "%s is F5-ing, thanks to the pixies at fuckmealswap.com!",
+        "Been here for days: it's %s!",
+        "Your evil twin, %s!",
+        "The one, the only, %s!",
+        "%s! Mathe<i>mati</i>cal!",
+        "I live in Camberwell, %s lives in Brixton!",
+        "%s. ...need I say more?",
+        "Their password is their username: it's %s!",
+        "Everypony knows that %s is the reason this whole thing even got started in the first place.",
+        "HEYYEYAAEYAAAEYAEYAA: %s!",
+        "<img src=\"/Images/oprahbees.gif\">Bees!</img>"
+    };
+    
+    <text>@string.Format(describers[new Random().Next(describers.Count)], name)</text>
+} 
+
+
+@{
+    var queue = Model.ValidUsers;
+    
+    <table>
+        <tr>
+            <th>@queue.Count mealfriends are trying to book</th>
+        </tr>
+
+        @foreach (var user in queue) {
+            <tr><td>@DescribePerson("<b>" + user + "</b>")</td></tr>
+        }
+    </table>
+}
+<table>
+    <tr>
+        <th></th>
+    </tr>
+
+@{
+    var queue = Model.ValidUsers;
+
+}
+
+@foreach (var item in Model.UserLastCheckedIn) {
+    // if queue item isn't outdated...
+    if (item.Value >= threshold) {
+        <tr>
+            <td>
+                @item.Key is waiting...
+            </td>
+        </tr>
+    }
+}
+
+</table>
